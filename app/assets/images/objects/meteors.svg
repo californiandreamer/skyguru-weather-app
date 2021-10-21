@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="245.209" height="950.466" viewBox="0 0 245.209 950.466">
+  <g id="Meteors" transform="translate(-160.705 273.163) rotate(-59)" opacity="0.5">
+    <g id="Group_1" data-name="Group 1">
+      <path id="Path_20" data-name="Path 20" d="M2.843,0,5.686,100.454s-.334,3.75-2.9,3.463S0,100.454,0,100.454Z" transform="translate(10.606 456.926) rotate(60)" fill="#eee"/>
+      <path id="Path_3" data-name="Path 3" d="M2.157,0,4.314,76.213s-.254,2.845-2.2,2.628S0,76.213,0,76.213Z" transform="translate(355.785 67.78) rotate(60)" fill="#eee"/>
+      <path id="Path_19" data-name="Path 19" d="M2.157,0,4.314,76.213s-.254,2.845-2.2,2.628S0,76.213,0,76.213Z" transform="translate(152.658 224.83) rotate(60)" fill="#eee"/>
+      <path id="Path_4" data-name="Path 4" d="M1.583,0,3.167,46.618s-.186,1.74-1.617,1.607A1.759,1.759,0,0,1,0,46.618Z" transform="translate(399.713 142.783) rotate(60)" fill="#eee"/>
+      <path id="Path_22" data-name="Path 22" d="M1.583,0,3.167,46.618s-.186,1.74-1.617,1.607A1.759,1.759,0,0,1,0,46.618Z" transform="translate(-388.054 569.455) rotate(60)" fill="#eee"/>
+      <path id="Path_21" data-name="Path 21" d="M1.583,0,3.167,46.618s-.186,1.74-1.617,1.607A1.759,1.759,0,0,1,0,46.618Z" transform="translate(-177.593 298.796) rotate(60)" fill="#eee"/>
+    </g>
+  </g>
+</svg>

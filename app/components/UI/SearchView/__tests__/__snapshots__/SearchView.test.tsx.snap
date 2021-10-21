@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchView component renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "padding": 40,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "flex-start",
+        "paddingTop": 5,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "paddingRight": 10,
+        }
+      }
+    >
+      <SvgMock
+        height={20}
+        width={20}
+      />
+    </View>
+    <TextInput
+      accessibilityLabel="answer input"
+      onChangeText={[Function]}
+      placeholder="Search city"
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "color": "#EEE",
+          "flex": 1,
+          "fontFamily": "Gilroy-Regular",
+          "fontSize": 20,
+          "height": 32,
+          "paddingTop": 2,
+        }
+      }
+      value=""
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "paddingLeft": 30,
+        "paddingTop": 20,
+      }
+    }
+    testID="results area"
+  />
+</View>
+`;

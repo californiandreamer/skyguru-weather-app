@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WeatherGrid component renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "maxHeight": 100,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "height": "100%",
+          "justifyContent": "center",
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        collapsable={false}
+        nativeID="animatedComponent"
+        style={
+          Object {
+            "transform": Array [
+              Object {
+                "rotateZ": "0deg",
+              },
+            ],
+          }
+        }
+      >
+        <SvgMock
+          height={36}
+          width={36}
+        />
+      </View>
+    </View>
+  </View>
+</View>
+`;

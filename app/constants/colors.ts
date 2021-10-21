@@ -1,0 +1,8 @@
+export const transparent = 'transparent'
+export const skyBlue = '#26B3F0'
+export const darkOrange = '#DAB866'
+export const darkViolet = '#0D0411'
+export const transparentGray = 'rgba(51, 51, 51, 0.8)'
+export const violet = '#240024'
+export const white = '#EEE'
+export const gray = '#878787'

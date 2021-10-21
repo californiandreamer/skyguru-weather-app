@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="381" height="184" viewBox="0 0 381 184">
+  <g id="Stars" transform="translate(-11 -43)" opacity="0.8">
+    <circle id="Ellipse_1" data-name="Ellipse 1" cx="4" cy="4" r="4" transform="matrix(0.966, 0.259, -0.259, 0.966, 148.464, 96.876)" fill="#fbf7eb"/>
+    <circle id="Ellipse_5" data-name="Ellipse 5" cx="3.5" cy="3.5" r="3.5" transform="translate(51 76)" fill="#fbf7eb"/>
+    <circle id="Ellipse_3" data-name="Ellipse 3" cx="5" cy="5" r="5" transform="translate(278 52)" fill="#fbf7eb"/>
+    <circle id="Ellipse_4" data-name="Ellipse 4" cx="3.5" cy="3.5" r="3.5" transform="translate(379 124)" fill="#fbf7eb"/>
+    <circle id="Ellipse_2" data-name="Ellipse 2" cx="3.5" cy="3.5" r="3.5" transform="translate(14 217)" fill="#fbf7eb"/>
+  </g>
+</svg>

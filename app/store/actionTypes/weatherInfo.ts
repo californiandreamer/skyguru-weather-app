@@ -1,0 +1,4 @@
+export enum weatherInfoTypes {
+  SHOW_WEATHER_INFO = 'SHOW_WEATHER_INFO',
+  HIDE_WEATHER_INFO = 'HIDE_WEATHER_INFO',
+}

@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AlertView component renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "padding": 40,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+        "padding": 20,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "paddingVertical": 20,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#EEE",
+          "fontFamily": "Gilroy-Regular",
+          "fontSize": 20,
+          "lineHeight": 32,
+          "textAlign": undefined,
+          "textTransform": undefined,
+        }
+      }
+    >
+      
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    nativeID="animatedComponent"
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(51, 51, 51, 0.8)",
+        "justifyContent": "center",
+        "opacity": 1,
+        "padding": 20,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#EEE",
+          "fontFamily": "Gilroy-Regular",
+          "fontSize": 24,
+          "lineHeight": 32,
+          "textAlign": undefined,
+          "textTransform": undefined,
+        }
+      }
+    >
+      Try again
+    </Text>
+  </View>
+</View>
+`;

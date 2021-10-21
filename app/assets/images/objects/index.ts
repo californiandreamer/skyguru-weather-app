@@ -1,0 +1,5 @@
+export { default as DropsImage } from './drops.svg'
+export { default as MeteorsImage } from './meteors.svg'
+export { default as MoonImage } from './moon.png'
+export { default as StarsImage } from './stars.svg'
+export { default as SunImage } from './sun.png'
