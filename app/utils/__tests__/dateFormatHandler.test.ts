@@ -1,6 +1,7 @@
 import { dateFormatHandler } from '../dateFormatHandler'
 
 describe('dateFormatHandler util', () => {
+  // TODO: fix node 16 fails
   it('returns right day format', () => {
     const input = 1634745971
     const output = '20/10/2021'
