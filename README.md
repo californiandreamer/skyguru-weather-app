@@ -8,7 +8,7 @@ Skyguru - the simple wheather app which helps user to follow weather in any plac
 "start:both": "react-native run-ios --device 'iPhone Nazar' && react-native run-android",
 ```
 These scripts are running spicified devices\
-**Important!** Before use custom scripts don't it's necessary to change *--device 'iPhone Nazar'* to your or remove at all
+**Important!** Before use custom scripts don't it's necessary to change *--device 'iPhone Nazar'* to your's one or remove at all
 
 ```
 "lint:fix": "eslint . --fix '**/*.{ts,tsx}'",
@@ -16,7 +16,7 @@ These scripts are running spicified devices\
 This script fixes eslint errors in the entire project. Also, it has important property to sort imports. So it should be ran before pushing
  
 ```
-"test:update": "jest --verbose --coverage --updateSnapshot",
+"test:update": "jest --verbose --updateSnapshot",
 ```
 This feature helps to follow tests running and update snapshots
 
