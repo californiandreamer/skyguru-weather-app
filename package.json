@@ -24,6 +24,7 @@
     "axios": "^0.21.4",
     "react": "17.0.2",
     "react-native": "0.66.1",
+    "react-native-mmkv": "^2.4.1",
     "react-native-permissions": "^3.0.5",
     "react-native-svg": "^12.1.1",
     "react-native-svg-transformer": "^0.14.3",

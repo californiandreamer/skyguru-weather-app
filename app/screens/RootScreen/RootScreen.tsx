@@ -12,7 +12,7 @@ import {
   noConnectionContent,
 } from '../../constants/content'
 import { fadeTiming } from '../../constants/values'
-import { useGeolocation, useTheme } from '../../hooks'
+import { useGeolocation, useStorage, useTheme } from '../../hooks'
 import { IAlertProps } from '../../models'
 import { PermissionService } from '../../services/PermissionService'
 import { hideAlert, showAlert } from '../../store/actions/alert'
@@ -137,6 +137,23 @@ const RootScreen = () => {
       setIsPending(false)
     }
   }, [futureWeatherPending, currentWeatherPending])
+
+  // MMKV
+  const { setItemToStorage, getItemFromStorage } = useStorage()
+
+  useEffect(() => {
+    const userName = 'Nazar'
+    const userType = 'admin'
+
+    setItemToStorage({ key: 'user.name', value: userName })
+    setItemToStorage({ key: 'user.type', value: userType })
+
+    const getUserName = getItemFromStorage({ key: 'user.name', type: 'string' })
+    const getUserType = getItemFromStorage({ key: 'user.type', type: 'string' })
+
+    console.log('user name from storage: ', getUserName)
+    console.log('user type from storage: ', getUserType)
+  }, [])
 
   return (
     <SafeAreaView
