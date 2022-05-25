@@ -1,4 +1,5 @@
 import { useNetInfo } from '@react-native-community/netinfo'
+import { StorageService } from 'app/services/storageService'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,7 +13,7 @@ import {
   noConnectionContent,
 } from '../../constants/content'
 import { fadeTiming } from '../../constants/values'
-import { useGeolocation, useStorage, useTheme } from '../../hooks'
+import { useGeolocation, useTheme } from '../../hooks'
 import { IAlertProps } from '../../models'
 import { PermissionService } from '../../services/PermissionService'
 import { hideAlert, showAlert } from '../../store/actions/alert'
@@ -23,6 +24,8 @@ import { hideWeatherInfo } from '../../store/actions/weatherInfo'
 import { RootState } from '../../store/reducers/rootReducer'
 import { themeHandler } from '../../utils/themeHandler'
 import styles from './RootScreen.styles'
+
+const { setItemToStorage, getItemFromStorage } = StorageService
 
 const RootScreen = () => {
   // constants
@@ -139,7 +142,6 @@ const RootScreen = () => {
   }, [futureWeatherPending, currentWeatherPending])
 
   // MMKV
-  const { setItemToStorage, getItemFromStorage } = useStorage()
 
   useEffect(() => {
     const userName = 'Nazar'
