@@ -2,6 +2,11 @@
 
 Skyguru - the simple wheather app which helps user to follow weather in any place of the planet.
 
+<div style={{ display: flex, jusify-content: space-between }}>
+<img src="https://user-images.githubusercontent.com/67259677/207849470-dcdd8cf5-839a-4343-ab16-5018985827fc.PNG" width="400">
+<img src="https://user-images.githubusercontent.com/67259677/207849450-0f33cae3-493f-473d-89fa-700f220f8ddf.PNG" width="400">
+</div>
+
 ## Available scripts
 ```
 "ios:dev": "react-native run-ios --device 'iPhone Nazar'",
