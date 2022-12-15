@@ -13,7 +13,11 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './UserLocationView.styles'
 
-const UserLocationView: React.FC = () => {
+type UserLocationViewType = {
+  isDisabled?: boolean
+}
+
+const UserLocationView = ({ isDisabled = false }: UserLocationViewType) => {
   const dispatch = useDispatch()
 
   const { pending, currentWeather, error } = useSelector(
@@ -24,6 +28,7 @@ const UserLocationView: React.FC = () => {
 
   return (
     <TouchableOpacity
+      disabled={isDisabled}
       style={styles.container}
       activeOpacity={pressOpacity}
       onPress={() => dispatch(showSearch())}

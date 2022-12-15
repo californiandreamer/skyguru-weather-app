@@ -25,7 +25,6 @@ import { themeHandler } from '../../utils/themeHandler'
 import styles from './RootScreen.styles'
 
 const RootScreen = () => {
-  // constants
   const netInfo = useNetInfo()
   const dispatch = useDispatch()
 
@@ -35,7 +34,6 @@ const RootScreen = () => {
     (state: RootState) => state.weatherInfo
   )
 
-  // pending
   const currentWeatherPending = useSelector(
     (state: RootState) => state.currentWeather.pending
   )
@@ -43,7 +41,6 @@ const RootScreen = () => {
     (state: RootState) => state.futureWeather.pending
   )
 
-  // errors
   const currentWeatherError = useSelector(
     (state: RootState) => state.currentWeather.error
   )
@@ -51,14 +48,11 @@ const RootScreen = () => {
     (state: RootState) => state.futureWeather.error
   )
 
-  // state
   const [isPending, setIsPending] = useState<boolean>(false)
 
-  // hooks
   const [{ theme }] = useTheme()
   const [position] = useGeolocation()
 
-  // handlers
   const checkInternetConnection = () => {
     const props: IAlertProps = {
       ...noConnectionContent,
@@ -108,14 +102,12 @@ const RootScreen = () => {
     }, fadeTiming)
   }
 
-  // renderers
   const renderMainComponent = () => <MainComponent />
 
   const renderLayout = ({ type, onHide }: LayoutT) => (
     <LayoutComponent type={type} onHide={onHide} />
   )
 
-  // effects
   useEffect(() => {
     checkLocationPermission()
     dispatch(fetchCurrentWeatherRequest({ position }))

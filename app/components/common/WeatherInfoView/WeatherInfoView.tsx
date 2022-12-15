@@ -63,7 +63,7 @@ const WeatherInfoView: React.FC = () => {
 
   const renderUserLocation = () => (
     <View style={styles.userLocationArea}>
-      <UserLocationView />
+      <UserLocationView isDisabled={true} />
     </View>
   )
 
