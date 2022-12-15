@@ -44,6 +44,9 @@ export const weatherIconHandler = (type: IconHandlerT) => {
       case 'snow':
         Illustration = SnowyIcon
         break
+      case 'light snow':
+        Illustration = SnowyIcon
+        break
       case 'mist':
         Illustration = FoggyIcon
         break
