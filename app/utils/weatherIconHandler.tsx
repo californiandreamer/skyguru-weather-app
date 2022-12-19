@@ -1,12 +1,14 @@
 import {
   CloudyIcon,
   FoggyIcon,
+  FrostIcon,
   NAIcon,
   RainyIcon,
   ShowerIcon,
   SnowyIcon,
   SunnyCloudyIcon,
   SunnyIcon,
+  RainySnowyIcon,
   ThunderstormIcon,
 } from 'app/assets'
 import { weatherIconSize } from 'app/constants/values'
@@ -41,8 +43,11 @@ export const weatherIconHandler = (type: IconHandlerT) => {
       case 'thunderstorm':
         Illustration = ThunderstormIcon
         break
+      case 'rain and snow':
+        Illustration = RainySnowyIcon
+        break
       case 'snow':
-        Illustration = SnowyIcon
+        Illustration = FrostIcon
         break
       case 'light snow':
         Illustration = SnowyIcon
