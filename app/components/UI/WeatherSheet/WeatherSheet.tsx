@@ -7,7 +7,7 @@ import { dayOfWeekHandler } from 'app/utils/dayOfWeekHandler'
 import { weatherFormatter } from 'app/utils/weatherFormatter'
 import { weatherIconHandler } from 'app/utils/weatherIconHandler'
 import React, { useEffect, useState } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { FlatList, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './WeatherSheet.styles'
@@ -32,30 +32,36 @@ const WeatherSheet: React.FC = () => {
     handleWeatherData()
   }, [futureWeather])
 
-  const renderWeatherItems = () =>
-    slicedData?.map((item) => (
-      <TouchableOpacity
-        style={styles.item}
-        key={item.dt}
-        activeOpacity={pressOpacity}
-        accessibilityLabel="daily item"
-        onPress={() => {
-          dispatch(showWeatherInfo(item))
-        }}
-      >
-        <StyledText>{dayOfWeekHandler(item.dt)}</StyledText>
-        <View style={styles.itemWrapper}>
-          <StyledText>
-            {weatherFormatter(item.temp.day, 'temperature')}
-          </StyledText>
-          <View style={styles.itemIcon}>
-            {weatherIconHandler(
-              item.weather.map((item) => item.description)[0]
-            )}
-          </View>
+  const renderWeatherItem = (item: IDayWeather) => (
+    <TouchableOpacity
+      style={styles.item}
+      key={item.dt}
+      activeOpacity={pressOpacity}
+      accessibilityLabel="daily item"
+      onPress={() => {
+        dispatch(showWeatherInfo(item))
+      }}
+    >
+      <StyledText>{dayOfWeekHandler(item.dt)}</StyledText>
+      <View style={styles.itemWrapper}>
+        <StyledText>
+          {weatherFormatter(item.temp.day, 'temperature')}
+        </StyledText>
+        <View style={styles.itemIcon}>
+          {weatherIconHandler(item.weather.map((item) => item.description)[0])}
         </View>
-      </TouchableOpacity>
-    ))
+      </View>
+    </TouchableOpacity>
+  )
+
+  const renderWeatherItems = () => (
+    <FlatList
+      bounces={false}
+      data={slicedData}
+      renderItem={({ item }) => renderWeatherItem(item)}
+      keyExtractor={(item) => item.dt.toString()}
+    />
+  )
 
   return <View style={styles.container}>{renderWeatherItems()}</View>
 }
