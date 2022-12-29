@@ -11,6 +11,7 @@ import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
   container: {
     padding: largeGap,
+    paddingBottom: gap,
   },
   searchArea: {
     paddingTop: littleGap,
@@ -39,5 +40,21 @@ export default StyleSheet.create({
   },
   resultsItem: {
     paddingVertical: smallGap,
+  },
+  locationButtonArea: {
+    padding: gap,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  locationButton: {
+    height: 32,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  locationButtonText: {
+    fontSize: smallFontSize,
+    fontFamily: 'Gilroy-Regular',
+    color: white,
   },
 })

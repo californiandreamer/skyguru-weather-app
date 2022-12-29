@@ -6,12 +6,13 @@ import {
   resultsQuantity,
   smallFontSize,
 } from 'app/constants/values'
+import { useGeolocation } from 'app/hooks'
 import { IGeolocationData } from 'app/models'
 import { fetchCurrentWeatherRequest } from 'app/store/actions/currentWeather'
 import { fetchFutureWeatherRequest } from 'app/store/actions/futureWeather'
 import { hideSearch } from 'app/store/actions/search'
 import React, { useEffect, useRef, useState } from 'react'
-import { View, TextInput, TouchableOpacity } from 'react-native'
+import { View, TextInput, TouchableOpacity, Text } from 'react-native'
 import { useDispatch } from 'react-redux'
 
 import cities from '../../../data/cities.json'
@@ -27,6 +28,7 @@ export type CitiesT = {
 const SearchView: React.FC = () => {
   const [value, setValue] = useState<string>('')
   const [results, setResults] = useState<CitiesT[]>([])
+  const [position] = useGeolocation()
 
   const dispatch = useDispatch()
   const inputRef = useRef<TextInput>(null)
@@ -49,11 +51,17 @@ const SearchView: React.FC = () => {
   }
 
   const handleResultPress = (city: CitiesT) => {
-    const position: IGeolocationData = {
-      latitude: parseInt(city.lat, 10),
-      longitude: parseInt(city.lng, 10),
+    const cityPosition: IGeolocationData = {
+      latitude: parseFloat(city.lat),
+      longitude: parseFloat(city.lng),
     }
 
+    dispatch(fetchCurrentWeatherRequest({ position: cityPosition }))
+    dispatch(fetchFutureWeatherRequest({ position: cityPosition }))
+    dispatch(hideSearch())
+  }
+
+  const handleOwnLocationPress = () => {
     dispatch(fetchCurrentWeatherRequest({ position }))
     dispatch(fetchFutureWeatherRequest({ position }))
     dispatch(hideSearch())
@@ -99,10 +107,24 @@ const SearchView: React.FC = () => {
     </View>
   )
 
+  const renderLocationButton = () => (
+    <View style={styles.locationButtonArea}>
+      <TouchableOpacity
+        style={styles.locationButton}
+        activeOpacity={pressOpacity}
+        accessibilityLabel="location button"
+        onPress={handleOwnLocationPress}
+      >
+        <Text style={styles.locationButtonText}>Use my location</Text>
+      </TouchableOpacity>
+    </View>
+  )
+
   return (
     <View style={styles.container}>
       {renderSearchArea()}
       {renderResults()}
+      {renderLocationButton()}
     </View>
   )
 }
