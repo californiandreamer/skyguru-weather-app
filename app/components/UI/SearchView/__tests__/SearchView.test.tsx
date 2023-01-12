@@ -8,6 +8,10 @@ import SearchView from '../SearchView'
 
 jest.useRealTimers()
 
+jest.mock('app/hooks/useGeolocation', () => ({
+  useGeolocation: () => [{ latitude: '52.2167', longitude: '21.0333' }],
+}))
+
 describe('SearchView component', () => {
   const store = configureStore()
   const textToCheck = 'War'

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
+import styles from './RootScreen.styles'
 import LayoutComponent, {
   LayoutT,
 } from '../../components/common/LayoutComponent/LayoutComponent'
@@ -22,7 +23,6 @@ import { hideSearch } from '../../store/actions/search'
 import { hideWeatherInfo } from '../../store/actions/weatherInfo'
 import { RootState } from '../../store/reducers/rootReducer'
 import { themeHandler } from '../../utils/themeHandler'
-import styles from './RootScreen.styles'
 
 const RootScreen = () => {
   const netInfo = useNetInfo()

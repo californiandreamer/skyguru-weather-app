@@ -5,6 +5,7 @@
     "module": "commonjs" /* Report errors in .js files. */,
     "jsx": "react",
     "noEmit": true,
+    "skipLibCheck": true,
     /* Strict Type-Checking Options */
     "strict": true,
     /* Module Resolution Options */
