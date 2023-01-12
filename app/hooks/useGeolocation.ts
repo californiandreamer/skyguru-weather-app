@@ -15,14 +15,14 @@ export const useGeolocation = (): [IGeolocationData, GeolocationErrorT] => {
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
-      (position) => {
+      (currentPosition) => {
         setError(null)
         setPosition({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
+          latitude: currentPosition.coords.latitude,
+          longitude: currentPosition.coords.longitude,
         })
       },
-      (error) => setError(error.message)
+      (err) => setError(err.message)
     )
   }, [])
 
