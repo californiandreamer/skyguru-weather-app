@@ -5,10 +5,8 @@ module.exports = {
     es6: true,
   },
   extends: [
-    '@react-native-community',
     'prettier',
-    'eslint:recommended',
-    'eslint-config-prettier',
+    '@react-native-community',
     'plugin:import/warnings',
     'plugin:import/typescript',
     'plugin:react/recommended',
@@ -16,6 +14,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'eslint-config-prettier',
   ],
   plugins: [
     'import',
@@ -42,6 +41,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'off',
     '@typescript-eslint/no-unsafe-call': 'off',
     '@typescript-eslint/no-unsafe-return': 'off',
+    '@typescript-eslint/no-misused-promises': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/no-unsafe-assignment': 'off',
     '@typescript-eslint/no-unsafe-member-access': 'off',

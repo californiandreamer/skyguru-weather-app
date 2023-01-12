@@ -15,8 +15,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { View, TextInput, TouchableOpacity, Text } from 'react-native'
 import { useDispatch } from 'react-redux'
 
-import cities from '../../../data/cities.json'
 import styles from './SearchView.styles'
+import cities from '../../../data/cities.json'
 
 export type CitiesT = {
   country: string
@@ -90,6 +90,8 @@ const SearchView: React.FC = () => {
   const renderResults = () => (
     <View style={styles.resultsArea} testID="results area">
       {results.map((item, index) => {
+        console.log('item', item)
+
         return (
           <TouchableOpacity
             style={styles.resultsItem}

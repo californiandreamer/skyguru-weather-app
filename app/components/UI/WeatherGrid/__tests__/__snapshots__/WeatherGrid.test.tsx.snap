@@ -28,7 +28,6 @@ exports[`WeatherGrid component renders correctly 1`] = `
     >
       <View
         collapsable={false}
-        nativeID="animatedComponent"
         style={
           Object {
             "transform": Array [

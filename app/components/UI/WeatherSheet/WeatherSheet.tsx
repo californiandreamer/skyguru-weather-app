@@ -48,7 +48,9 @@ const WeatherSheet: React.FC = () => {
           {weatherFormatter(item.temp.day, 'temperature')}
         </StyledText>
         <View style={styles.itemIcon}>
-          {weatherIconHandler(item.weather.map((item) => item.description)[0])}
+          {weatherIconHandler(
+            item.weather.map((weatherItem) => weatherItem.description)[0]
+          )}
         </View>
       </View>
     </TouchableOpacity>
