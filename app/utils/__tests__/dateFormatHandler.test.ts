@@ -1,5 +1,7 @@
 import { dateFormatHandler } from '../dateFormatHandler'
 
+jest.useFakeTimers()
+
 describe('dateFormatHandler util', () => {
   // TODO: fix node 16 fails
   it('returns right day format', () => {
