@@ -5,6 +5,7 @@ exports[`SearchView component renders correctly 1`] = `
   style={
     Object {
       "padding": 40,
+      "paddingBottom": 20,
     }
   }
 >
@@ -57,5 +58,49 @@ exports[`SearchView component renders correctly 1`] = `
     }
     testID="results area"
   />
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+        "padding": 20,
+      }
+    }
+  >
+    <View
+      accessibilityLabel="location button"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "height": 32,
+          "justifyContent": "center",
+          "opacity": 1,
+          "width": "100%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#EEE",
+            "fontFamily": "Gilroy-Regular",
+            "fontSize": 20,
+          }
+        }
+      >
+        Use my location
+      </Text>
+    </View>
+  </View>
 </View>
 `;
