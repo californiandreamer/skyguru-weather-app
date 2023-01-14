@@ -3,13 +3,58 @@ import WeatherGrid from 'app/components/UI/WeatherGrid/WeatherGrid'
 import WeatherSheet from 'app/components/UI/WeatherSheet/WeatherSheet'
 import { useTheme } from 'app/hooks'
 import { themeHandler } from 'app/utils/themeHandler'
-import React from 'react'
-import { Image, ImageSourcePropType, View } from 'react-native'
+import React, { useEffect } from 'react'
+import {
+  Image,
+  ImageSourcePropType,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from 'react-native'
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withSpring,
+  withTiming,
+} from 'react-native-reanimated'
 
 import styles from './MainComponent.styles'
 
 const MainComponent: React.FC = () => {
+  const { height } = useWindowDimensions()
   const [{ theme, position }] = useTheme()
+  const screenOffset = useSharedValue(height)
+
+  const getMountainsAnimatedStyle = (index: number) =>
+    useAnimatedStyle(() => {
+      return {
+        transform: [
+          {
+            translateY: withDelay(
+              index * 200,
+              withTiming(screenOffset.value, {
+                duration: 300,
+                easing: Easing.bezier(0.1, 0.2, 0.3, 1),
+              })
+            ),
+          },
+        ],
+      }
+    })
+
+  const onInitialAnimation = () => {
+    screenOffset.value = 0
+  }
+
+  // useEffect(() => {
+  //   console.log('offset', offset.value)
+  // }, [offset.value])
+
+  useEffect(() => {
+    onInitialAnimation()
+  }, [])
 
   const renderMountains = () => (
     <>
@@ -18,9 +63,12 @@ const MainComponent: React.FC = () => {
       </View>
       {themeHandler(theme, 'mountains').map(
         (item: ImageSourcePropType, index: number) => (
-          <View style={styles.mountain} key={index}>
+          <Animated.View
+            style={[styles.mountain, getMountainsAnimatedStyle(index)]}
+            key={index}
+          >
             <Image style={styles.mountainImage} source={item} />
-          </View>
+          </Animated.View>
         )
       )}
     </>
@@ -39,7 +87,7 @@ const MainComponent: React.FC = () => {
   )
 
   const renderSun = () => (
-    <Image
+    <Animated.Image
       style={[styles.sun, { ...position }]}
       source={themeHandler(theme, 'sun')}
     />
@@ -58,6 +106,18 @@ const MainComponent: React.FC = () => {
       {renderSun()}
       {renderMountains()}
       {renderWeatherSheet()}
+      {/* <TouchableOpacity
+        style={{
+          width: 50,
+          height: 50,
+          backgroundColor: 'gray',
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          zIndex: 100,
+        }}
+        onPress={onInitialAnimation}
+      /> */}
     </View>
   )
 }
