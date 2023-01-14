@@ -2,12 +2,12 @@ import UserLocationView from 'app/components/UI/UserLocationView/UserLocationVie
 import WeatherGrid from 'app/components/UI/WeatherGrid/WeatherGrid'
 import WeatherSheet from 'app/components/UI/WeatherSheet/WeatherSheet'
 import { useTheme } from 'app/hooks'
+import { SunPositionT } from 'app/store/types/theme'
 import { themeHandler } from 'app/utils/themeHandler'
 import React, { useEffect } from 'react'
 import {
   Image,
   ImageSourcePropType,
-  TouchableOpacity,
   useWindowDimensions,
   View,
 } from 'react-native'
@@ -16,16 +16,25 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withDelay,
-  withSpring,
   withTiming,
 } from 'react-native-reanimated'
 
 import styles from './MainComponent.styles'
 
 const MainComponent: React.FC = () => {
-  const { height } = useWindowDimensions()
   const [{ theme, position }] = useTheme()
-  const screenOffset = useSharedValue(height)
+  const { width, height } = useWindowDimensions()
+  const sunOffset = useSharedValue<SunPositionT>({
+    ...position,
+    top: position.top,
+    right: width,
+  })
+  const mountainsOffset = useSharedValue(height)
+
+  const onInitialAnimation = () => {
+    sunOffset.value = position
+    mountainsOffset.value = 0
+  }
 
   const getMountainsAnimatedStyle = (index: number) =>
     useAnimatedStyle(() => {
@@ -34,7 +43,7 @@ const MainComponent: React.FC = () => {
           {
             translateY: withDelay(
               index * 200,
-              withTiming(screenOffset.value, {
+              withTiming(mountainsOffset.value, {
                 duration: 300,
                 easing: Easing.bezier(0.1, 0.2, 0.3, 1),
               })
@@ -44,9 +53,22 @@ const MainComponent: React.FC = () => {
       }
     })
 
-  const onInitialAnimation = () => {
-    screenOffset.value = 0
-  }
+  const getSunAnimatedStyle = () =>
+    useAnimatedStyle(() => {
+      return {
+        transform: [
+          {
+            translateX: withDelay(
+              1000,
+              withTiming(sunOffset.value.right, {
+                duration: 300,
+                easing: Easing.bezier(0.1, 0.2, 0.3, 1),
+              })
+            ),
+          },
+        ],
+      }
+    })
 
   // useEffect(() => {
   //   console.log('offset', offset.value)
@@ -88,7 +110,7 @@ const MainComponent: React.FC = () => {
 
   const renderSun = () => (
     <Animated.Image
-      style={[styles.sun, { ...position }]}
+      style={[styles.sun, getSunAnimatedStyle()]}
       source={themeHandler(theme, 'sun')}
     />
   )
