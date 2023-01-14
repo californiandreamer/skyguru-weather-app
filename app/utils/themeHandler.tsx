@@ -25,6 +25,8 @@ export type SunTypeT = 'sun' | 'moon'
 export type ThemeHandlerT = React.FC<SvgProps> | null
 
 export const themeHandler = (value: DayPartT | SunTypeT, type: ObjectTypeT) => {
+  'worklet'
+
   const dayMountains = [
     DayMountainTopImage,
     DayMountainMiddleImage,

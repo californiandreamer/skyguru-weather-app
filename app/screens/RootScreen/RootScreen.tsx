@@ -1,6 +1,6 @@
 import { useNetInfo } from '@react-native-community/netinfo'
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView } from 'react-native'
+import { SafeAreaView, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './RootScreen.styles'
@@ -23,6 +23,13 @@ import { hideSearch } from '../../store/actions/search'
 import { hideWeatherInfo } from '../../store/actions/weatherInfo'
 import { RootState } from '../../store/reducers/rootReducer'
 import { themeHandler } from '../../utils/themeHandler'
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated'
+import { violet } from 'app/constants/colors'
 
 const RootScreen = () => {
   const netInfo = useNetInfo()
@@ -52,6 +59,8 @@ const RootScreen = () => {
 
   const [{ theme }] = useTheme()
   const [position] = useGeolocation()
+
+  const skyColorValue = useSharedValue(violet)
 
   const checkInternetConnection = () => {
     const props: IAlertProps = {
@@ -102,6 +111,21 @@ const RootScreen = () => {
     }, fadeTiming)
   }
 
+  const onInitialAnimation = () => {
+    skyColorValue.value = withTiming(themeHandler(theme, 'sky'))
+  }
+
+  const getBackgroundAnimatedStyle = () => {
+    return useAnimatedStyle(() => {
+      return {
+        backgroundColor: withTiming(skyColorValue.value, {
+          duration: 1000,
+          easing: Easing.linear,
+        }),
+      }
+    })
+  }
+
   const renderMainComponent = () => <MainComponent />
 
   const renderLayout = ({ type, onHide }: LayoutT) => (
@@ -130,6 +154,10 @@ const RootScreen = () => {
     }
   }, [futureWeatherPending, currentWeatherPending])
 
+  useEffect(() => {
+    onInitialAnimation()
+  }, [])
+
   return (
     <SafeAreaView
       style={[
@@ -137,17 +165,19 @@ const RootScreen = () => {
         { backgroundColor: themeHandler(theme, 'sky') },
       ]}
     >
-      {renderMainComponent()}
-      {isPending ? renderLayout({ type: 'loading' }) : null}
-      {isAlertShown
-        ? renderLayout({ type: 'alert', onHide: hideLayout })
-        : null}
-      {isSearchShown
-        ? renderLayout({ type: 'search', onHide: hideLayout })
-        : null}
-      {isWeatherInfoShown
-        ? renderLayout({ type: 'weather', onHide: hideLayout })
-        : null}
+      <Animated.View style={[styles.background, getBackgroundAnimatedStyle()]}>
+        {renderMainComponent()}
+        {isPending ? renderLayout({ type: 'loading' }) : null}
+        {isAlertShown
+          ? renderLayout({ type: 'alert', onHide: hideLayout })
+          : null}
+        {isSearchShown
+          ? renderLayout({ type: 'search', onHide: hideLayout })
+          : null}
+        {isWeatherInfoShown
+          ? renderLayout({ type: 'weather', onHide: hideLayout })
+          : null}
+      </Animated.View>
     </SafeAreaView>
   )
 }
