@@ -1,5 +1,6 @@
 import { RootScreen } from 'app/screens'
 import React from 'react'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Provider } from 'react-redux'
 
 import configureStore from './store'
@@ -9,7 +10,9 @@ const Root = () => {
 
   return (
     <Provider store={store}>
-      <RootScreen />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <RootScreen />
+      </GestureHandlerRootView>
     </Provider>
   )
 }
