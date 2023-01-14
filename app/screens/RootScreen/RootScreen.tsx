@@ -1,6 +1,5 @@
 import { useNetInfo } from '@react-native-community/netinfo'
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './RootScreen.styles'
@@ -30,6 +29,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { violet } from 'app/constants/colors'
+import { SafeAreaView } from 'react-native'
 
 const RootScreen = () => {
   const netInfo = useNetInfo()
@@ -127,7 +127,6 @@ const RootScreen = () => {
   }
 
   const renderMainComponent = () => <MainComponent />
-
   const renderLayout = ({ type, onHide }: LayoutT) => (
     <LayoutComponent type={type} onHide={onHide} />
   )
@@ -159,13 +158,8 @@ const RootScreen = () => {
   }, [])
 
   return (
-    <SafeAreaView
-      style={[
-        styles.container,
-        { backgroundColor: themeHandler(theme, 'sky') },
-      ]}
-    >
-      <Animated.View style={[styles.background, getBackgroundAnimatedStyle()]}>
+    <Animated.View style={[styles.background, getBackgroundAnimatedStyle()]}>
+      <SafeAreaView style={styles.container}>
         {renderMainComponent()}
         {isPending ? renderLayout({ type: 'loading' }) : null}
         {isAlertShown
@@ -177,8 +171,8 @@ const RootScreen = () => {
         {isWeatherInfoShown
           ? renderLayout({ type: 'weather', onHide: hideLayout })
           : null}
-      </Animated.View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </Animated.View>
   )
 }
 

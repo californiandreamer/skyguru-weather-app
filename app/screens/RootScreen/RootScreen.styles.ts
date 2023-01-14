@@ -2,10 +2,10 @@ import { darkViolet, skyBlue } from 'app/constants/colors'
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
   },
-  background: {
+  container: {
     flex: 1,
   },
 })
