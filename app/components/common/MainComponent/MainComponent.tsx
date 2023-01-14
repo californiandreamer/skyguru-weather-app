@@ -30,10 +30,12 @@ const MainComponent: React.FC = () => {
     right: width,
   })
   const mountainsOffset = useSharedValue(height)
+  const eclipseOpacity = useSharedValue(0)
 
   const onInitialAnimation = () => {
     sunOffset.value = position
     mountainsOffset.value = 0
+    eclipseOpacity.value = 1
   }
 
   const getMountainsAnimatedStyle = (index: number) =>
@@ -70,9 +72,18 @@ const MainComponent: React.FC = () => {
       }
     })
 
-  // useEffect(() => {
-  //   console.log('offset', offset.value)
-  // }, [offset.value])
+  const getEclipseAnimatedStyle = () =>
+    useAnimatedStyle(() => {
+      return {
+        opacity: withDelay(
+          1000,
+          withTiming(eclipseOpacity.value, {
+            duration: 300,
+            easing: Easing.bezier(0.1, 0.2, 0.3, 1),
+          })
+        ),
+      }
+    })
 
   useEffect(() => {
     onInitialAnimation()
@@ -80,9 +91,12 @@ const MainComponent: React.FC = () => {
 
   const renderMountains = () => (
     <>
-      <View style={styles.eclipse}>
-        <Image source={themeHandler(theme, 'eclipse')} />
-      </View>
+      <Animated.View style={styles.eclipse}>
+        <Animated.Image
+          style={getEclipseAnimatedStyle()}
+          source={themeHandler(theme, 'eclipse')}
+        />
+      </Animated.View>
       {themeHandler(theme, 'mountains').map(
         (item: ImageSourcePropType, index: number) => (
           <Animated.View
@@ -128,18 +142,6 @@ const MainComponent: React.FC = () => {
       {renderSun()}
       {renderMountains()}
       {renderWeatherSheet()}
-      {/* <TouchableOpacity
-        style={{
-          width: 50,
-          height: 50,
-          backgroundColor: 'gray',
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          zIndex: 100,
-        }}
-        onPress={onInitialAnimation}
-      /> */}
     </View>
   )
 }
