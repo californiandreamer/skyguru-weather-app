@@ -10,7 +10,7 @@
     "start": "react-native start",
     "start:cache": "react-native start --reset-cache",
     "start:both": "react-native run-ios && react-native run-android",
-    "start:both:devices": "react-native run-ios --device 'iPhone Nazar' && react-native run-android",
+    "start:both:dev": "react-native run-ios --device 'iPhone Nazar' && react-native run-android",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
     "format": "prettier --check \"**/*.+(js|jsx|json|yml|yaml|css|md|vue)\"",

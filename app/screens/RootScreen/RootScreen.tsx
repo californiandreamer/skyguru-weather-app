@@ -11,7 +11,7 @@ import {
   locationPermissionContent,
   noConnectionContent,
 } from '../../constants/content'
-import { fadeTiming } from '../../constants/values'
+import { fadeTiming, initialAnimationDelay } from '../../constants/values'
 import { useGeolocation, useTheme } from '../../hooks'
 import { IAlertProps } from '../../models'
 import { PermissionService } from '../../services/PermissionService'
@@ -119,7 +119,7 @@ const RootScreen = () => {
     return useAnimatedStyle(() => {
       return {
         backgroundColor: withTiming(skyColorValue.value, {
-          duration: 1000,
+          duration: initialAnimationDelay,
           easing: Easing.linear,
         }),
       }

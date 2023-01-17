@@ -1,6 +1,10 @@
 import UserLocationView from 'app/components/UI/UserLocationView/UserLocationView'
 import WeatherGrid from 'app/components/UI/WeatherGrid/WeatherGrid'
 import WeatherSheet from 'app/components/UI/WeatherSheet/WeatherSheet'
+import {
+  initialAnimationDelay,
+  initialAnimationDuration,
+} from 'app/constants/values'
 import { useTheme } from 'app/hooks'
 import { SunPositionT } from 'app/store/types/theme'
 import { themeHandler } from 'app/utils/themeHandler'
@@ -46,7 +50,7 @@ const MainComponent: React.FC = () => {
             translateY: withDelay(
               index * 200,
               withTiming(mountainsOffset.value, {
-                duration: 300,
+                duration: initialAnimationDuration,
                 easing: Easing.bezier(0.1, 0.2, 0.3, 1),
               })
             ),
@@ -61,9 +65,9 @@ const MainComponent: React.FC = () => {
         transform: [
           {
             translateX: withDelay(
-              1000,
+              initialAnimationDelay,
               withTiming(sunOffset.value.right, {
-                duration: 300,
+                duration: initialAnimationDuration,
                 easing: Easing.bezier(0.1, 0.2, 0.3, 1),
               })
             ),
@@ -76,9 +80,9 @@ const MainComponent: React.FC = () => {
     useAnimatedStyle(() => {
       return {
         opacity: withDelay(
-          1000,
+          initialAnimationDelay,
           withTiming(eclipseOpacity.value, {
-            duration: 300,
+            duration: initialAnimationDuration,
             easing: Easing.bezier(0.1, 0.2, 0.3, 1),
           })
         ),
