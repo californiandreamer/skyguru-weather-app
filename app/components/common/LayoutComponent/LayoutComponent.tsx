@@ -27,14 +27,13 @@ const LayoutComponent: React.FC<LayoutT> = ({ type, onHide }) => {
   }
 
   const fadeOut = () => {
-    if (onHide) {
+    onHide &&
       RNAnimated.timing(fadeAnimation, {
         toValue: 0,
         easing: Easing.ease,
         duration: fadeTiming,
         useNativeDriver: false,
       }).start(() => onHide())
-    }
   }
 
   useEffect(() => {
@@ -50,7 +49,7 @@ const LayoutComponent: React.FC<LayoutT> = ({ type, onHide }) => {
   )
 
   const renderInfoView = () => (
-    <Bar position="bottom">
+    <Bar position="bottom" onHide={fadeOut}>
       <WeatherInfoView />
     </Bar>
   )

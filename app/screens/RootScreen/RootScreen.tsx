@@ -28,7 +28,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
-import { violet } from 'app/constants/colors'
+import { darkViolet } from 'app/constants/colors'
 import { SafeAreaView } from 'react-native'
 
 const RootScreen = () => {
@@ -60,7 +60,7 @@ const RootScreen = () => {
   const [{ theme }] = useTheme()
   const [position] = useGeolocation()
 
-  const skyColorValue = useSharedValue(violet)
+  const skyColorValue = useSharedValue(darkViolet)
 
   const checkInternetConnection = () => {
     const props: IAlertProps = {
@@ -105,6 +105,7 @@ const RootScreen = () => {
 
   const hideLayout = () => {
     setTimeout(() => {
+      'worklet'
       dispatch(hideAlert())
       dispatch(hideSearch())
       dispatch(hideWeatherInfo())
@@ -146,16 +147,14 @@ const RootScreen = () => {
   }, [netInfo.isConnected])
 
   useEffect(() => {
+    onInitialAnimation()
+
     if (futureWeatherPending || currentWeatherPending) {
       setIsPending(true)
     } else {
       setIsPending(false)
     }
   }, [futureWeatherPending, currentWeatherPending])
-
-  useEffect(() => {
-    onInitialAnimation()
-  }, [])
 
   return (
     <Animated.View style={[styles.background, getBackgroundAnimatedStyle()]}>

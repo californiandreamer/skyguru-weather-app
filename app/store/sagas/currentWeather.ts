@@ -1,5 +1,6 @@
 import { API_KEY, BASE_URL } from 'app/constants/api'
 import { units } from 'app/constants/values'
+import { currentWeatherDataMock } from 'app/mocks/currentWeatherDataMock'
 import { IGeolocationData, ICurrentWeather } from 'app/models'
 import axios from 'axios'
 import { all, call, put, takeLatest } from 'redux-saga/effects'
@@ -13,11 +14,11 @@ import { currentWeatherTypes } from '../actionTypes/currentWeather'
 export const getCurrentWeather = async (
   position: IGeolocationData
 ): Promise<ICurrentWeather> => {
-  const response = await axios.get(
-    `${BASE_URL}weather?lat=${position.latitude}&lon=${position.longitude}&appid=${API_KEY}&units=${units}`
-  )
-  const data: ICurrentWeather = response.data
-  return data
+  // const response = await axios.get(
+  //   `${BASE_URL}weather?lat=${position.latitude}&lon=${position.longitude}&appid=${API_KEY}&units=${units}`
+  // )
+  // const data: ICurrentWeather = response.data
+  return currentWeatherDataMock
 }
 
 export function* fetchCurrentWeatherSaga({

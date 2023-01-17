@@ -5,6 +5,7 @@ exports[`Spinner component renders correctly 1`] = `
   style={
     Object {
       "alignItems": "center",
+      "flex": 1,
       "height": "100%",
       "justifyContent": "center",
       "width": "100%",

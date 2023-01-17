@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux'
 import styles from './WeatherInfoView.styles'
 
 const WeatherInfoView: React.FC = () => {
+  const [data, setData] = useState<IWeatherInfo[] | null>(null)
   const weatherInfo = useSelector((state: RootState) => state.weatherInfo.props)
 
   const gridProps: WeatherT | null = weatherInfo
@@ -27,8 +28,6 @@ const WeatherInfoView: React.FC = () => {
         weatherStatus: weatherInfo.weather.map((item) => item.description),
       }
     : weatherInfo
-
-  const [data, setData] = useState<IWeatherInfo[] | null>(null)
 
   const handleWeatherData = () => {
     if (weatherInfo)
@@ -91,12 +90,13 @@ const WeatherInfoView: React.FC = () => {
       </View>
     </View>
   )
-
   const renderSpinner = () => (
     <View style={styles.spinner}>
       <Spinner />
     </View>
   )
+
+  const renderChart = () => <View style={styles.chart} />
 
   return (
     <View style={styles.container}>
@@ -107,9 +107,10 @@ const WeatherInfoView: React.FC = () => {
             {renderWeatherGrid()}
             {renderWeatherInfo()}
           </View>
+          <View style={styles.chartWrapper}>{renderChart()}</View>
         </>
       ) : (
-        renderSpinner()
+        renderSpinner() // TODO: fix spinner orbit
       )}
     </View>
   )
