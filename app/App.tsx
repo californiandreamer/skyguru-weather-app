@@ -3,6 +3,7 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Provider } from 'react-redux'
+import SplashProvider from './components/HOC/Splash'
 
 import configureStore from './store'
 
@@ -12,7 +13,9 @@ const Root = () => {
   return (
     <Provider store={store}>
       <GestureHandlerRootView style={styles.gestureHandlerView}>
-        <RootScreen />
+        <SplashProvider>
+          <RootScreen />
+        </SplashProvider>
       </GestureHandlerRootView>
     </Provider>
   )

@@ -29,3 +29,4 @@ export const initialAnimationDelay = 1000
 
 //Feature flags
 export const realDataFetching = false
+export const splashEnabled = true
