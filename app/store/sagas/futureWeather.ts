@@ -1,6 +1,6 @@
-import { futureDataMock } from 'app/mocks/futureWeatherDataMock'
 import { API_KEY, BASE_URL } from 'app/constants/api'
-import { units } from 'app/constants/values'
+import { realDataFetching, units } from 'app/constants/values'
+import { futureDataMock } from 'app/mocks/futureWeatherDataMock'
 import { IGeolocationData, IFutureWeather } from 'app/models'
 import axios from 'axios'
 import { all, call, put, takeLatest } from 'redux-saga/effects'
@@ -14,11 +14,16 @@ import { futureWeatherTypes } from '../actionTypes/futureWeather'
 const getFutureWeather = async (
   position: IGeolocationData
 ): Promise<IFutureWeather> => {
-  // const response = await axios.get(
-  //   `${BASE_URL}onecall?lat=${position.latitude}&lon=${position.longitude}&appid=${API_KEY}&units=${units}`
-  // )
-  // const data: IFutureWeather = response.data
-  return futureDataMock
+  // TODO: remove realDataFetching flag on release
+  if (realDataFetching) {
+    const response = await axios.get(
+      `${BASE_URL}onecall?lat=${position.latitude}&lon=${position.longitude}&appid=${API_KEY}&units=${units}`
+    )
+    const data: IFutureWeather = response.data
+    return data
+  } else {
+    return futureDataMock
+  }
 }
 
 function* fetchFutureWeatherSaga({
