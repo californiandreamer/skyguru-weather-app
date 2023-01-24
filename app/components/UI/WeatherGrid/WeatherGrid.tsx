@@ -1,13 +1,18 @@
 import StyledText from 'app/components/HOC/Text'
 import Spinner from 'app/components/UI/Spinner/Spinner'
-import { largeFontSize, smallFontSize } from 'app/constants/values'
+import {
+  largeFontSize,
+  pressOpacity,
+  smallFontSize,
+} from 'app/constants/values'
 import { useTheme } from 'app/hooks'
+import { showWeatherInfo } from 'app/store/actions/weatherInfo'
 import { RootState } from 'app/store/reducers/rootReducer'
 import { weatherFormatter } from 'app/utils/weatherFormatter'
 import { weatherIconHandler } from 'app/utils/weatherIconHandler'
 import React, { useEffect, useState } from 'react'
-import { View } from 'react-native'
-import { useSelector } from 'react-redux'
+import { TouchableOpacity, View } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './WeatherGrid.styles'
 
@@ -20,9 +25,10 @@ export type WeatherT = {
 }
 
 const WeatherGrid: React.FC<WeatherT> = (props) => {
+  const dispatch = useDispatch()
+
   const [data, setData] = useState<WeatherT | null>(null)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [{ theme, position }, updateTheme] = useTheme()
+  const [_, updateTheme] = useTheme()
 
   const { pending, currentWeather, error } = useSelector(
     (state: RootState) => state.currentWeather
@@ -59,7 +65,35 @@ const WeatherGrid: React.FC<WeatherT> = (props) => {
   }, [currentWeather])
 
   const renderWeatherGrid = () => (
-    <>
+    <TouchableOpacity
+      activeOpacity={pressOpacity}
+      onPress={() =>
+        currentWeather &&
+        dispatch(
+          showWeatherInfo({
+            clouds: currentWeather.clouds.all,
+            dew_point: 0,
+            dt: currentWeather.dt,
+            feels_like: { day: currentWeather.main.feels_like },
+            humidity: currentWeather.main.humidity,
+            pressure: currentWeather.main.pressure,
+            sunrise: currentWeather.sys.sunrise,
+            sunset: currentWeather.sys.sunset,
+            temp: {
+              day: currentWeather.main.temp,
+              min: currentWeather.main.temp_min,
+              max: currentWeather.main.temp_max,
+            },
+            uvi: currentWeather.id,
+            visibility: currentWeather.visibility,
+            weather: [...currentWeather.weather],
+            wind_deg: currentWeather.wind.deg,
+            wind_gust: currentWeather.wind.gust,
+            wind_speed: currentWeather.wind.speed,
+          })
+        )
+      }
+    >
       <View style={styles.weatherStatusRow}>
         <View style={styles.weatherIcon}>
           {weatherIconHandler(
@@ -79,7 +113,7 @@ const WeatherGrid: React.FC<WeatherT> = (props) => {
           {weatherFormatter(data?.minTemperature, 'temperature')}
         </StyledText>
       </View>
-    </>
+    </TouchableOpacity>
   )
 
   const renderSpinner = () => (

@@ -104,12 +104,10 @@ const RootScreen = () => {
   }
 
   const hideLayout = () => {
-    setTimeout(() => {
-      'worklet'
-      dispatch(hideAlert())
-      dispatch(hideSearch())
-      dispatch(hideWeatherInfo())
-    }, fadeTiming)
+    'worklet'
+    dispatch(hideAlert())
+    dispatch(hideSearch())
+    dispatch(hideWeatherInfo())
   }
 
   const onInitialAnimation = () => {

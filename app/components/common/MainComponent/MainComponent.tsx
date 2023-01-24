@@ -135,7 +135,7 @@ const MainComponent: React.FC = () => {
 
   const renderWeatherSheet = () => (
     <View style={styles.weatherSheetContainer}>
-      <WeatherSheet />
+      <WeatherSheet onTouchMoveDown={() => null} onTouchMoveEnd={() => null} />
     </View>
   )
 

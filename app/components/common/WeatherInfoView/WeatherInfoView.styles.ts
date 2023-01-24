@@ -1,4 +1,4 @@
-import { gray } from 'app/constants/colors'
+import { darkViolet, gray, violet } from 'app/constants/colors'
 import { gap, largeGap, littleGap } from 'app/constants/values'
 import { StyleSheet } from 'react-native'
 

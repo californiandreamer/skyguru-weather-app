@@ -28,5 +28,5 @@ export const initialAnimationDuration = 300
 export const initialAnimationDelay = 1000
 
 //Feature flags
-export const realDataFetching = false
-export const splashEnabled = true
+export const realDataFetching = true
+export const splashEnabled = false
