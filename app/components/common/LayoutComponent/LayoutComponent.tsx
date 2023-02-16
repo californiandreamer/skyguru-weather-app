@@ -5,7 +5,7 @@ import SearchView from 'app/components/UI/SearchView/SearchView'
 import Spinner from 'app/components/UI/Spinner/Spinner'
 import { fadeTiming } from 'app/constants/values'
 import React, { useEffect, useRef } from 'react'
-import { Animated, Easing, TouchableOpacity } from 'react-native'
+import { Animated as RNAnimated, Easing, TouchableOpacity } from 'react-native'
 
 import styles from './LayoutComponent.styles'
 
@@ -15,10 +15,10 @@ export type LayoutT = {
 }
 
 const LayoutComponent: React.FC<LayoutT> = ({ type, onHide }) => {
-  const fadeAnimation = useRef(new Animated.Value(0)).current
+  const fadeAnimation = useRef(new RNAnimated.Value(0)).current
 
   const fadeIn = () => {
-    Animated.timing(fadeAnimation, {
+    RNAnimated.timing(fadeAnimation, {
       toValue: 1,
       easing: Easing.ease,
       duration: fadeTiming,
@@ -27,14 +27,13 @@ const LayoutComponent: React.FC<LayoutT> = ({ type, onHide }) => {
   }
 
   const fadeOut = () => {
-    if (onHide) {
-      Animated.timing(fadeAnimation, {
+    onHide &&
+      RNAnimated.timing(fadeAnimation, {
         toValue: 0,
         easing: Easing.ease,
         duration: fadeTiming,
         useNativeDriver: false,
       }).start(() => onHide())
-    }
   }
 
   useEffect(() => {
@@ -50,7 +49,7 @@ const LayoutComponent: React.FC<LayoutT> = ({ type, onHide }) => {
   )
 
   const renderInfoView = () => (
-    <Bar position="bottom">
+    <Bar position="bottom" onHide={fadeOut}>
       <WeatherInfoView />
     </Bar>
   )
@@ -77,7 +76,7 @@ const LayoutComponent: React.FC<LayoutT> = ({ type, onHide }) => {
   }
 
   return (
-    <Animated.View style={[styles.container, { opacity: fadeAnimation }]}>
+    <RNAnimated.View style={[styles.container, { opacity: fadeAnimation }]}>
       <TouchableOpacity
         style={styles.pressableArea}
         activeOpacity={1}
@@ -85,7 +84,7 @@ const LayoutComponent: React.FC<LayoutT> = ({ type, onHide }) => {
       >
         {returnType()}
       </TouchableOpacity>
-    </Animated.View>
+    </RNAnimated.View>
   )
 }
 

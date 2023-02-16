@@ -12,7 +12,15 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './WeatherSheet.styles'
 
-const WeatherSheet: React.FC = () => {
+type WeatherSheetT = {
+  onTouchMoveDown: (locationY: number) => void
+  onTouchMoveEnd: () => void
+}
+
+const WeatherSheet: React.FC<WeatherSheetT> = ({
+  onTouchMoveDown,
+  onTouchMoveEnd,
+}) => {
   const dispatch = useDispatch()
 
   const [data, setData] = useState<IDayWeather[] | null>(null)
@@ -58,10 +66,23 @@ const WeatherSheet: React.FC = () => {
 
   const renderWeatherItems = () => (
     <FlatList
-      bounces={false}
       data={slicedData}
       renderItem={({ item }) => renderWeatherItem(item)}
       keyExtractor={(item) => item.dt.toString()}
+      // TODO: implement pull-to-refresh logic
+      // bounces={true}
+      // bouncesZoom={true}
+      // refreshing={false}
+      // showsVerticalScrollIndicator={false}
+      // onRefresh={() => {
+      //   // TODO: add common data fetch saga
+      // }}
+      // onTouchMove={({ nativeEvent }) => {
+      //   if (nativeEvent.locationY > 40 && nativeEvent.locationY < 180) {
+      //     onTouchMoveDown(nativeEvent.locationY)
+      //   }
+      // }}
+      // onTouchEnd={() => onTouchMoveEnd()}
     />
   )
 

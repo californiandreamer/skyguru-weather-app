@@ -1,10 +1,12 @@
+import { darkViolet, gray, violet } from 'app/constants/colors'
 import { gap, largeGap, littleGap } from 'app/constants/values'
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
   container: {
     paddingHorizontal: littleGap,
-    paddingVertical: largeGap,
+    paddingTop: gap,
+    paddingBottom: largeGap,
   },
   userLocationArea: {},
   infoWrapper: {
@@ -33,5 +35,15 @@ export default StyleSheet.create({
     width: 100,
     padding: 10,
   },
-  spinner: {},
+  spinner: {
+    flex: 1,
+  },
+  chartWrapper: {
+    paddingHorizontal: gap,
+  },
+  chart: {
+    marginTop: gap,
+    backgroundColor: gray,
+    height: 200,
+  },
 })

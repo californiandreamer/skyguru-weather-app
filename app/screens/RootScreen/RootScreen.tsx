@@ -1,6 +1,5 @@
 import { useNetInfo } from '@react-native-community/netinfo'
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './RootScreen.styles'
@@ -12,7 +11,7 @@ import {
   locationPermissionContent,
   noConnectionContent,
 } from '../../constants/content'
-import { fadeTiming } from '../../constants/values'
+import { fadeTiming, initialAnimationDelay } from '../../constants/values'
 import { useGeolocation, useTheme } from '../../hooks'
 import { IAlertProps } from '../../models'
 import { PermissionService } from '../../services/PermissionService'
@@ -23,6 +22,14 @@ import { hideSearch } from '../../store/actions/search'
 import { hideWeatherInfo } from '../../store/actions/weatherInfo'
 import { RootState } from '../../store/reducers/rootReducer'
 import { themeHandler } from '../../utils/themeHandler'
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated'
+import { darkViolet } from 'app/constants/colors'
+import { SafeAreaView } from 'react-native'
 
 const RootScreen = () => {
   const netInfo = useNetInfo()
@@ -52,6 +59,8 @@ const RootScreen = () => {
 
   const [{ theme }] = useTheme()
   const [position] = useGeolocation()
+
+  const skyColorValue = useSharedValue(darkViolet)
 
   const checkInternetConnection = () => {
     const props: IAlertProps = {
@@ -95,15 +104,28 @@ const RootScreen = () => {
   }
 
   const hideLayout = () => {
-    setTimeout(() => {
-      dispatch(hideAlert())
-      dispatch(hideSearch())
-      dispatch(hideWeatherInfo())
-    }, fadeTiming)
+    'worklet'
+    dispatch(hideAlert())
+    dispatch(hideSearch())
+    dispatch(hideWeatherInfo())
+  }
+
+  const onInitialAnimation = () => {
+    skyColorValue.value = withTiming(themeHandler(theme, 'sky'))
+  }
+
+  const getBackgroundAnimatedStyle = () => {
+    return useAnimatedStyle(() => {
+      return {
+        backgroundColor: withTiming(skyColorValue.value, {
+          duration: initialAnimationDelay,
+          easing: Easing.linear,
+        }),
+      }
+    })
   }
 
   const renderMainComponent = () => <MainComponent />
-
   const renderLayout = ({ type, onHide }: LayoutT) => (
     <LayoutComponent type={type} onHide={onHide} />
   )
@@ -123,6 +145,8 @@ const RootScreen = () => {
   }, [netInfo.isConnected])
 
   useEffect(() => {
+    onInitialAnimation()
+
     if (futureWeatherPending || currentWeatherPending) {
       setIsPending(true)
     } else {
@@ -131,24 +155,21 @@ const RootScreen = () => {
   }, [futureWeatherPending, currentWeatherPending])
 
   return (
-    <SafeAreaView
-      style={[
-        styles.container,
-        { backgroundColor: themeHandler(theme, 'sky') },
-      ]}
-    >
-      {renderMainComponent()}
-      {isPending ? renderLayout({ type: 'loading' }) : null}
-      {isAlertShown
-        ? renderLayout({ type: 'alert', onHide: hideLayout })
-        : null}
-      {isSearchShown
-        ? renderLayout({ type: 'search', onHide: hideLayout })
-        : null}
-      {isWeatherInfoShown
-        ? renderLayout({ type: 'weather', onHide: hideLayout })
-        : null}
-    </SafeAreaView>
+    <Animated.View style={[styles.background, getBackgroundAnimatedStyle()]}>
+      <SafeAreaView style={styles.container}>
+        {renderMainComponent()}
+        {isPending ? renderLayout({ type: 'loading' }) : null}
+        {isAlertShown
+          ? renderLayout({ type: 'alert', onHide: hideLayout })
+          : null}
+        {isSearchShown
+          ? renderLayout({ type: 'search', onHide: hideLayout })
+          : null}
+        {isWeatherInfoShown
+          ? renderLayout({ type: 'weather', onHide: hideLayout })
+          : null}
+      </SafeAreaView>
+    </Animated.View>
   )
 }
 

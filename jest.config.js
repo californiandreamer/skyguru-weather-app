@@ -7,6 +7,7 @@ module.exports = {
       '<rootDir>/jest/transformers/assetsTransformer.js',
     '\\.svg$': '<rootDir>/jest/transformers/svgTransformer.js',
   },
+  setupFiles: ['./node_modules/react-native-gesture-handler/jestSetup.js'],
   setupFilesAfterEnv: [
     './jest/setupTests.ts',
     '@testing-library/jest-native/extend-expect',

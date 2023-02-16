@@ -1,26 +1,114 @@
 import UserLocationView from 'app/components/UI/UserLocationView/UserLocationView'
 import WeatherGrid from 'app/components/UI/WeatherGrid/WeatherGrid'
 import WeatherSheet from 'app/components/UI/WeatherSheet/WeatherSheet'
+import {
+  initialAnimationDelay,
+  initialAnimationDuration,
+} from 'app/constants/values'
 import { useTheme } from 'app/hooks'
+import { SunPositionT } from 'app/store/types/theme'
 import { themeHandler } from 'app/utils/themeHandler'
-import React from 'react'
-import { Image, ImageSourcePropType, View } from 'react-native'
+import React, { useEffect } from 'react'
+import {
+  Image,
+  ImageSourcePropType,
+  useWindowDimensions,
+  View,
+} from 'react-native'
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withTiming,
+} from 'react-native-reanimated'
 
 import styles from './MainComponent.styles'
 
 const MainComponent: React.FC = () => {
   const [{ theme, position }] = useTheme()
+  const { width, height } = useWindowDimensions()
+  const sunOffset = useSharedValue<SunPositionT>({
+    ...position,
+    top: position.top,
+    right: width,
+  })
+  const mountainsOffset = useSharedValue(height)
+  const eclipseOpacity = useSharedValue(0)
+
+  const onInitialAnimation = () => {
+    sunOffset.value = position
+    mountainsOffset.value = 0
+    eclipseOpacity.value = 1
+  }
+
+  const getMountainsAnimatedStyle = (index: number) =>
+    useAnimatedStyle(() => {
+      return {
+        transform: [
+          {
+            translateY: withDelay(
+              index * 200,
+              withTiming(mountainsOffset.value, {
+                duration: initialAnimationDuration,
+                easing: Easing.bezier(0.1, 0.2, 0.3, 1),
+              })
+            ),
+          },
+        ],
+      }
+    })
+
+  const getSunAnimatedStyle = () =>
+    useAnimatedStyle(() => {
+      return {
+        transform: [
+          {
+            translateX: withDelay(
+              initialAnimationDelay,
+              withTiming(sunOffset.value.right, {
+                duration: initialAnimationDuration,
+                easing: Easing.bezier(0.1, 0.2, 0.3, 1),
+              })
+            ),
+          },
+        ],
+      }
+    })
+
+  const getEclipseAnimatedStyle = () =>
+    useAnimatedStyle(() => {
+      return {
+        opacity: withDelay(
+          initialAnimationDelay,
+          withTiming(eclipseOpacity.value, {
+            duration: initialAnimationDuration,
+            easing: Easing.bezier(0.1, 0.2, 0.3, 1),
+          })
+        ),
+      }
+    })
+
+  useEffect(() => {
+    onInitialAnimation()
+  }, [])
 
   const renderMountains = () => (
     <>
-      <View style={styles.eclipse}>
-        <Image source={themeHandler(theme, 'eclipse')} />
-      </View>
+      <Animated.View style={styles.eclipse}>
+        <Animated.Image
+          style={getEclipseAnimatedStyle()}
+          source={themeHandler(theme, 'eclipse')}
+        />
+      </Animated.View>
       {themeHandler(theme, 'mountains').map(
         (item: ImageSourcePropType, index: number) => (
-          <View style={styles.mountain} key={index}>
+          <Animated.View
+            style={[styles.mountain, getMountainsAnimatedStyle(index)]}
+            key={index}
+          >
             <Image style={styles.mountainImage} source={item} />
-          </View>
+          </Animated.View>
         )
       )}
     </>
@@ -39,15 +127,15 @@ const MainComponent: React.FC = () => {
   )
 
   const renderSun = () => (
-    <Image
-      style={[styles.sun, { ...position }]}
+    <Animated.Image
+      style={[styles.sun, getSunAnimatedStyle()]}
       source={themeHandler(theme, 'sun')}
     />
   )
 
   const renderWeatherSheet = () => (
     <View style={styles.weatherSheetContainer}>
-      <WeatherSheet />
+      <WeatherSheet onTouchMoveDown={() => null} onTouchMoveEnd={() => null} />
     </View>
   )
 

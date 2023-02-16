@@ -22,3 +22,11 @@ export const fadeTiming = 500
 export const pressOpacity = 0.8
 export const daysQuantity = 6
 export const units = 'metric'
+
+// Animations
+export const initialAnimationDuration = 300
+export const initialAnimationDelay = 1000
+
+//Feature flags
+export const realDataFetching = true
+export const splashEnabled = false
